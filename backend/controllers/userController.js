@@ -71,7 +71,6 @@ export const login = async (req, res )=>{
 
     } catch (error) {
         console.log(error);
-        
     }
 };
 export const logout = (req, res) =>{
@@ -79,6 +78,15 @@ export const logout = (req, res) =>{
         return res.status(200).cookie("token", "", {maxAge:0}).json({
             message:"logged out successfully."
         })
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const getOtherUsers = async (req, res)=>{
+    try {
+        const loggedInUserId = req.id;
+        const otherUsers = await User.find({_id:{$ne:loggedInUserId}}).select("-password");
+        return res.status(200).json(otherUsers);
     } catch (error) {
         console.log(error);
         
