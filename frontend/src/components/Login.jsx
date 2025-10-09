@@ -1,10 +1,62 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setAuthUser } from "../redux/userSlice";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({
+    username: "",
+    password: "",
+  });
+
+  const validate = () => {
+    let newErrors = {};
+    if (!user.username.trim()) newErrors.username = "Username is required!";
+    if (!user.password.trim()) newErrors.password = "Password is required!";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    if (validate()) {
+      try {
+        const res = await axios.post(`http://localhost:8080/api/v1/user/login`, user, {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        });
+        navigate("/");
+        dispatch(setAuthUser(res.data));
+      } catch (error) {
+        toast.error(error.response.data.message);
+        console.log(error);
+
+      }
+      setUser({
+        username: "",
+        password: "",
+      })
+    }
+  };
+
+  const inputClass = (fieldError) =>
+    `w-full p-3 rounded-lg border text-white placeholder-gray-200 focus:outline-none focus:ring-2 transition-all ${fieldError
+      ? "border-red-500 focus:ring-red-500 bg-red-500/10"
+      : "border-white/30 bg-white/10 focus:ring-blue-400"
+    }`;
 
   return (
     <div className="flex items-center justify-center py-10">
@@ -13,18 +65,25 @@ const Login = () => {
           Log In
         </h1>
 
-        <form className="grid grid-cols-2 gap-6">
-
+        <form onSubmit={onSubmitHandler} className="grid grid-cols-2 gap-6">
           {/* Username */}
           <div className="col-span-2 sm:col-span-1">
             <label className="block text-white mb-2 text-sm font-semibold">
-              UserName
+              Username
             </label>
             <input
               type="text"
-              placeholder="username"
-              className="w-full p-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
+              value={user.username}
+              placeholder="Username"
+              onChange={(e) => {
+                setUser({ ...user, username: e.target.value });
+                setErrors({ ...errors, username: "" });
+              }}
+              className={inputClass(errors.username)}
             />
+            {errors.username && (
+              <p className="text-red-400 text-sm mt-2">{errors.username}</p>
+            )}
           </div>
 
           {/* Password */}
@@ -34,8 +93,13 @@ const Login = () => {
             </label>
             <input
               type={showPassword ? "text" : "password"}
+              value={user.password}
               placeholder="Enter password"
-              className="w-full p-3 pr-10 rounded-lg bg-white/10 border border-white/30 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
+              onChange={(e) => {
+                setUser({ ...user, password: e.target.value });
+                setErrors({ ...errors, password: "" });
+              }}
+              className={inputClass(errors.password)}
             />
             <button
               type="button"
@@ -44,6 +108,9 @@ const Login = () => {
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
+            {errors.password && (
+              <p className="text-red-400 text-sm mt-2">{errors.password}</p>
+            )}
           </div>
 
           {/* Submit Button */}
@@ -59,11 +126,9 @@ const Login = () => {
 
         <p className="text-center text-sm text-gray-200 mt-6">
           Don't have an account?{" "}
-          <a href="/register" className="text-blue-300 hover:underline">
-            <Link to="/register">
-              Sign up
-            </Link>
-          </a>
+          <Link to="/register" className="text-blue-300 hover:underline">
+            Sign up
+          </Link>
         </p>
       </div>
     </div>
