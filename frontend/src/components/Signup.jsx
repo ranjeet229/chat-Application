@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -75,22 +76,34 @@ const Signup = () => {
             </button>
           </div>
 
-          {/* Gender Checkboxes (aligned) */}
+
+          {/* Gender */}
           <div className="col-span-2 sm:col-span-1">
             <label className="block text-white mb-2 text-sm font-semibold">
               Gender
             </label>
             <div className="flex items-center space-x-6">
               <label className="flex items-center space-x-2 text-white">
-                <input type="checkbox" defaultChecked className="checkbox" />
+                <input
+                  type="radio"
+                  name="gender"
+                  value="male"
+                  className="accent-blue-500"
+                />
                 <span>Male</span>
               </label>
               <label className="flex items-center space-x-2 text-white">
-                <input type="checkbox" defaultChecked className="checkbox" />
+                <input
+                  type="radio"
+                  name="gender"
+                  value="female"
+                  className="accent-blue-500"
+                />
                 <span>Female</span>
               </label>
             </div>
           </div>
+
 
           {/* Submit Button */}
           <div className="col-span-2">
@@ -106,7 +119,9 @@ const Signup = () => {
         <p className="text-center text-sm text-gray-200 mt-6">
           Already have an account?{" "}
           <a href="/login" className="text-blue-300 hover:underline">
-            Log in
+            <Link to="/login">
+              Log in
+            </Link>
           </a>
         </p>
       </div>
