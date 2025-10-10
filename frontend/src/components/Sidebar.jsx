@@ -14,10 +14,7 @@ const Sidebar = () => {
                     type="text"
                     placeholder="Search..."
                 />
-                <button
-                    type="submit"
-                    className="p-2 bg-white/20 hover:bg-white/30 rounded-md transition-colors duration-200"
-                >
+                <button type="submit" className="flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200">
                     <MdSearch size={20} />
                 </button>
             </form>
