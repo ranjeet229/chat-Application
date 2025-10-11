@@ -1,13 +1,14 @@
 import React from 'react'
 
-const OtherUs = () => {
+const OtherUs = (props) => {
+    const user = props.user;
     return (
         <div>
             <div className="flex gap-2 items-center rounded-md p-2 cursor-pointer transition-colors duration-200 hover:bg-white/10">
                 <div className="avatar avatar-online">
                     <div className="w-12 rounded-full overflow-hidden">
                         <img
-                            src="https://wallpapers.com/images/featured/cool-profile-picture-87h46gcobjl5e4xu.jpg"
+                            src={user?.profilePhoto}
                             alt="user-profile"
                             className="object-cover w-full h-full"
                         />
@@ -15,7 +16,7 @@ const OtherUs = () => {
                 </div>
                 <div className="flex flex-col flex-1">
                     <div className="flex justify-between gap-2">
-                        <p className="text-white text-sm font-medium">Ranjeet Kumar</p>
+                        <p className="text-white text-sm font-medium">{user?.fullName}</p>
                     </div>
                 </div>
             </div>
