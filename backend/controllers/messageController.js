@@ -29,7 +29,7 @@ export const sendMessage = async (req, res)=>{
 
         //Scoket Io
         return res.status(201).json({
-            message:"Message send successfully."
+            newMessage
         });
 
 
