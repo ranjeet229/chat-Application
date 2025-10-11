@@ -8,11 +8,18 @@ const SendInput = () => {
         <input
           type="text"
           placeholder="Send a message..."
-          className="w-full p-3 pr-10 rounded-lg bg-white/10 text-white placeholder-gray-300 border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/30 backdrop-blur-md transition-all duration-200"
+          className="w-full p-3 pr-10 rounded-lg 
+                     bg-zinc-800/70 text-white placeholder-gray-400 
+                     border border-white/10 
+                     focus:outline-none focus:ring-2 focus:ring-white/20 
+                     backdrop-blur-md shadow-lg
+                     transition-all duration-200"
         />
         <button
           type="submit"
-          className="absolute top-1/2 right-3 transform -translate-y-1/2 text-white hover:text-white/70 transition-colors duration-200"
+          className="absolute top-1/2 right-3 transform -translate-y-1/2 
+                     text-white hover:text-white/70 
+                     transition-colors duration-200"
         >
           <IoSend size={20} />
         </button>

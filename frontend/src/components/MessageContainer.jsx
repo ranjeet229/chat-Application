@@ -5,10 +5,11 @@ import Messages from './Messages';
 const MessageContainer = () => {
   return (
     <div className="md:min-w-[750px] flex flex-col flex-1 bg-white/5 backdrop-blur-lg rounded-lg overflow-hidden border border-white/10 shadow-inner">
-  
-      <div className="flex gap-2 items-center bg-white/10 backdrop-blur-md px-4 py-2 border-b border-white/20">
+      
+      {/* 🔹 Updated Header (Dark Glassy Effect) */}
+      <div className="flex gap-3 items-center bg-zinc-800/70 backdrop-blur-md px-4 py-3 border-b border-white/10 shadow-md">
         <div className="avatar avatar-online">
-          <div className="w-12 rounded-full overflow-hidden border-2 border-white/30">
+          <div className="w-12 rounded-full overflow-hidden border-2 border-white/20 shadow-sm">
             <img
               src="https://wallpapers.com/images/featured/cool-profile-picture-87h46gcobjl5e4xu.jpg"
               alt="user-profile"
@@ -23,12 +24,12 @@ const MessageContainer = () => {
         </div>
       </div>
 
-      {/* Messages area */}
+      {/* Messages area (unchanged) */}
       <div className="flex-1 p-4 overflow-y-auto">
-        <Messages/>
+        <Messages />
       </div>
 
-      {/* Send Input pinned at bottom */}
+      {/* Send Input (unchanged) */}
       <div className="border-t border-white/20">
         <SendInput />
       </div>
