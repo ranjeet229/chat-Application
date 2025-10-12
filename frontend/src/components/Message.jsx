@@ -5,7 +5,7 @@ const Message = ({ message }) => {
     const scroll = useRef();
     const {authUser, selectedUser} = useSelector(store=>store.user);
     useEffect(() =>{
-        scroll.current?.scrollIntoView({behaviour:"smooth"});
+        scroll.current?.scrollIntoView({behavior:"smooth"});
     },[message]);
     return (
         <div ref={scroll} className={`chat ${authUser?._id === message?.senderId ? 'chat-end' : 'chat-start'}`}>
