@@ -45,7 +45,7 @@ const MessageContainer = () => {
           </div>
         ) : (
           <div className=' items-center justify-center md:min-w-[750px] flex flex-col flex-1 bg-white/5 backdrop-blur-lg rounded-lg overflow-hidden border border-white/10 shadow-inner'>
-            <h1 className='text-3xl font-bold'>Hi, {authUser.fullName}</h1>
+            <h1 className='text-3xl font-bold'>Hi, {authUser?.fullName}</h1>
             <h1 className='text-2xl'>Let's start conversation...</h1>
           </div>
         )

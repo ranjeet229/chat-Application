@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdSearch } from "react-icons/md";
-import { HiOutlineLogout } from "react-icons/hi"; // Logout icon
+import { HiOutlineLogout } from "react-icons/hi"; 
 import OtherUser from './OtherUser';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOtherUsers } from '../redux/userSlice';
+
 const Sidebar = () => {
+    const [Search, setSearch] = useState("");
+    const {otherUsers} = useSelector(store=>store.user);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const logoutHandler = async () => {
         try {
@@ -17,12 +23,23 @@ const Sidebar = () => {
 
         }
     }
+    const searchSubmitHandler = (e) =>{
+        e.preventDefault();
+        const conversationUser = otherUsers?.find((user)=> user.fullName.toLowerCase().includes(Search.toLocaleLowerCase()))
+        if(conversationUser){
+            dispatch(setOtherUsers([conversationUser]));
+        }else{
+            toast.error("User not found!");
+        }
+    }
     return (
         <div className="w-64 bg-white/10 text-white p-4 flex flex-col space-y-4 backdrop-blur-lg border-r border-white/20 shadow-md">
 
             {/* Search Form */}
-            <form className="flex items-center space-x-2 bg-white/10 p-2 rounded-lg backdrop-blur-md border border-white/20 hover:bg-zinc-800/70">
+            <form onSubmit={searchSubmitHandler} className="flex items-center space-x-2 bg-white/10 p-2 rounded-lg backdrop-blur-md border border-white/20 hover:bg-zinc-800/70">
                 <input
+                    value={Search}
+                    onChange={(e)=>setSearch(e.target.value)}
                     className="flex-1 bg-transparent outline-none placeholder-gray-300 text-sm text-white"
                     type="text"
                     placeholder="Search..."
