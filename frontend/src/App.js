@@ -40,9 +40,11 @@ function App() {
       socket.on('getOnlineUsers',(onlineUsers)=>{
         dispatch(setOnlineUsers(onlineUsers));
       });
+      return ()=> socket.close();
     }else{
       if(socket){
-        socket.close()
+        socket.close();
+        dispatch(setSocket(null));
       }
     }
   }, [authUser]);
