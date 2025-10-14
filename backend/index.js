@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://chat-application-rk.vercel.app",
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -33,7 +33,7 @@ const server = http.createServer(app);
 
 export const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://chat-application-rk.vercel.app",
     methods: ["GET", "POST"],
   },
 });
