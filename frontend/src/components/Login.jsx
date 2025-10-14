@@ -32,7 +32,7 @@ const Login = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        const res = await axios.post(`http://localhost:8080/api/v1/user/login`, user, {
+        const res = await axios.post(`https://chat-application-1-w46p.onrender.com/api/v1/user/login`, user, {
           headers: {
             'Content-Type': 'application/json'
           },
