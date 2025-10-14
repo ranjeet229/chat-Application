@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMessages } from '../redux/messageSlice';
+import { BASE_URL } from '..';
 
 const useGetMessages = () => {
     const {selectedUser} = useSelector(store=>store.user);
@@ -10,7 +11,7 @@ const useGetMessages = () => {
         const fetchMessage = async () => {
             try {
                 axios.defaults.withCredentials = true;
-                const res = await axios.get(`https://chat-application-1-w46p.onrender.com/api/v1/message/${selectedUser?._id}`);
+                const res = await axios.get(`${BASE_URL}/api/v1/message/${selectedUser?._id}`);
                 console.log(res);
                 dispatch(setMessages(res.data))
             } catch (error) {

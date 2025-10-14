@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import { setSocket } from "./redux/socketSlice";
 import { setOnlineUsers } from "./redux/userSlice";
+import { BASE_URL } from ".";
 
 function App() {
   const { authUser } = useSelector((store) => store.user);
@@ -16,7 +17,7 @@ function App() {
 
   useEffect(() => {
     if (authUser) {
-      const socket = io("https://chat-application-1-w46p.onrender.com", {
+      const socket = io(`${BASE_URL}`, {
         query: { userId: authUser._id },
       });
       dispatch(setSocket(socket));

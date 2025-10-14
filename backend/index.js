@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "https://chat-application-rk.vercel.app",
+  origin: "https://chat-application-rk.vercel.app/login",
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -33,7 +33,7 @@ const server = http.createServer(app);
 
 export const io = new Server(server, {
   cors: {
-    origin: "https://chat-application-rk.vercel.app",
+    origin: "https://chat-application-rk.vercel.app/login",
     methods: ["GET", "POST"],
   },
 });

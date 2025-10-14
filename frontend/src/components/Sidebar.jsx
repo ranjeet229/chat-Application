@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser, setOtherUsers } from '../redux/userSlice';
+import { BASE_URL } from '..';
 
 const Sidebar = () => {
     const [Search, setSearch] = useState("");
@@ -15,7 +16,7 @@ const Sidebar = () => {
     const navigate = useNavigate();
     const logoutHandler = async () => {
         try {
-            const res = await axios.get(`https://chat-application-1-w46p.onrender.com/api/v1/user/logout`);
+            const res = await axios.get(`${BASE_URL}/api/v1/user/logout`);
             navigate("/login");
             toast.success(res.data.message);
             dispatch(setAuthUser(null));

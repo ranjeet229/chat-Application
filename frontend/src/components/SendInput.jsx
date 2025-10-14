@@ -3,6 +3,7 @@ import { IoSend } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setMessages } from '../redux/messageSlice';
+import { BASE_URL } from '..';
 
 const SendInput = () => {
   
@@ -19,7 +20,7 @@ const SendInput = () => {
 
     try {
       const res = await axios.post(
-        `https://chat-application-1-w46p.onrender.com/api/v1/message/send/${selectedUser?._id}`,
+        `${BASE_URL}/api/v1/message/send/${selectedUser?._id}`,
         { message },
         {
           headers: { 'Content-Type': 'application/json' },
