@@ -12,6 +12,7 @@ const useGetOtherUsers = () => {
                 axios.defaults.withCredentials = true;
                 const res = await axios.get(`https://chat-application-1-w46p.onrender.com/api/v1/user/`);
                 //store
+                console.log("other users -> ", res);
                 dispatch(setOtherUsers(res.data));
             } catch (error) {
                 console.log(error);
