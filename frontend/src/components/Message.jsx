@@ -54,27 +54,29 @@ const Message = ({ message, showDateSeparator }) => {
                 </div>
 
                 <div
-                    className="chat-bubble 
-                        bg-zinc-800/70 backdrop-blur-lg 
-                        border border-white/10 
-                        text-white 
-                        shadow-lg 
-                        rounded-2xl 
-                        transition-all duration-300 
-                        hover:bg-zinc-700/80 hover:shadow-xl
-                        relative
-                        max-w-[70%]
-                        break-words
-                        px-3 py-2
-                        pr-10 pb-5"  // <-- Added padding-right & padding-bottom
+                    className={`chat-bubble 
+        ${isOwnMessage ? 'bg-purple-900 hover:bg-purple-700' : 'bg-zinc-900/70 hover:bg-zinc-700/80'} 
+        backdrop-blur-lg 
+        border border-white/10 
+        text-white 
+        shadow-lg 
+        rounded-2xl 
+        transition-all duration-300
+        relative
+        max-w-[70%]
+        break-words
+        px-3 py-2
+        pr-10 pb-5`}
                 >
                     <span>{message?.message}</span>
 
-                    {/* Time inside bubble */}
-                    <div className="absolute bottom-1 right-2 text-[10px] text-gray-400">
+                    {/* Time */}
+                    <div className={`absolute bottom-1 right-2 text-[10px] 
+        ${isOwnMessage ? 'text-purple-200' : 'text-gray-400'}`}>
                         {timeFormatted}
                     </div>
                 </div>
+
             </div>
         </>
     );

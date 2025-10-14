@@ -28,39 +28,45 @@ app.use(cors(corsOptions));
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/message", messageRoute);
 
-// HTTP server for Socket.IO...
+// HTTP server for Socket.IO
 const server = http.createServer(app);
 
-const io = new Server(server, {
+export const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
 
-const userSocketMap = {}; // {userId->socketId}
+const userSocketMap = {}; // { userId -> socketId }
 
-// Socket.IO connection...
+// to get receiver socket ID
+export const getReceiverSocketId = (receiverId) => {
+  return userSocketMap[receiverId];
+};
+
+// Socket.io connection
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
   const userId = socket.handshake.query.userId;
-  if (userId !== undefined) {
+  if (userId) {
     userSocketMap[userId] = socket.id;
   }
 
+  // Emit online users to all clients
   io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
   socket.on("disconnect", () => {
-    console.log("user disconnected", socket.id);
-    delete userSocketMap[userId];
+    console.log("User disconnected", socket.id);
+    if (userId && userSocketMap[userId] === socket.id) {
+      delete userSocketMap[userId];
+    }
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
-  })
-
-  
+  });
 });
 
-// Connect database
+// Connect database and start server
 connectDB().then(() => {
   server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
