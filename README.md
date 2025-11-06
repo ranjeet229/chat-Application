@@ -1,4 +1,4 @@
-# Whispr - Real-Time Chat Application
+# Real-Time Chat Application
 
 **Whispr** is a **real-time chat application** built with the MERN stack, **Socket.io** for live messaging, and **JWT** for secure authentication. Users can chat privately or in groups, see online status, and view message history.
 
